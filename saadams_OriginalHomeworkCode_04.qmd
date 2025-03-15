@@ -124,7 +124,6 @@ summary(lm_model)
 summary(log_lm_model)
 ```
 
-
 ### Point Estimate of Slope & Hypotheses Testing
 ```{r}
 # Model 1
@@ -155,8 +154,27 @@ CI2
 
 ```
 
+### Formulas for Plotting
+
+```{r}
+# Model 1
+lm_intercept <- coef(lm_model)[1] # intercept value in the lm_model result (index 1)
+lm_slope <- coef(lm_model)[2] # slope value in the lm_model result (index 2)
+lm_formula <- paste("y = ", lm_slope, "x + ", lm_intercept) # format formula
+
+lm_formula # view formula
+
+# Model 2
+log_lm_intercept <- coef(log_lm_model)[1] # intercept value in the log_lm_model result (index 1)
+log_lm_slope <- coef(log_lm_model)[2] # slope value in the log_lm_model result (index 2)
+log_lm_formula <- paste("y = ", log_lm_slope, "x + ", log_lm_intercept) # format formula
+
+log_lm_formula #view formula
+```
+
 ### Scatterplots
 ```{r}
 
+ggplot(d, aes(x = MaxLongevity_m, y = Brain_Size_Species_Mean)) + geom_point() + geom_text(x = max(d$MaxLongevity_m), y = max(d$Brain_Size_Species_Mean, label = lm_formula, color = "blue")) + labs(title = "Longevity (mo.) vs. Brain Size (g)", x = "Longevity (months)", y = "Brain Size (grams)")
 ```
 
