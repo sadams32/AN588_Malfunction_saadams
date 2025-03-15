@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>saadams_OriginalHomeworkCode_04</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="saadams_OriginalHomeworkCode_04_files/libs/clipboard/clipboard.min.js"></script>
+<script src="saadams_OriginalHomeworkCode_04_files/libs/quarto-html/quarto.js"></script>
+<script src="saadams_OriginalHomeworkCode_04_files/libs/quarto-html/popper.min.js"></script>
+<script src="saadams_OriginalHomeworkCode_04_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="saadams_OriginalHomeworkCode_04_files/libs/quarto-html/anchor.min.js"></script>
+<link href="saadams_OriginalHomeworkCode_04_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="saadams_OriginalHomeworkCode_04_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="saadams_OriginalHomeworkCode_04_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="saadams_OriginalHomeworkCode_04_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="saadams_OriginalHomeworkCode_04_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#load-packages" id="toc-load-packages" class="nav-link active" data-scroll-target="#load-packages">Load Packages</a></li>
+  <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data">Load Data</a></li>
+  <li><a href="#task-1" id="toc-task-1" class="nav-link" data-scroll-target="#task-1">Task 1</a></li>
+  <li><a href="#task-2" id="toc-task-2" class="nav-link" data-scroll-target="#task-2">Task 2</a>
+  <ul>
+  <li><a href="#linear-modeling" id="toc-linear-modeling" class="nav-link" data-scroll-target="#linear-modeling">Linear Modeling</a></li>
+  <li><a href="#formulas-for-plotting" id="toc-formulas-for-plotting" class="nav-link" data-scroll-target="#formulas-for-plotting">Formulas for Plotting</a></li>
+  <li><a href="#scatterplots" id="toc-scatterplots" class="nav-link" data-scroll-target="#scatterplots">Scatterplots</a></li>
+  <li><a href="#identify-and-interpret-point-estimate-of-the-slope-𝛽1-test-hypotheses" id="toc-identify-and-interpret-point-estimate-of-the-slope-𝛽1-test-hypotheses" class="nav-link" data-scroll-target="#identify-and-interpret-point-estimate-of-the-slope-𝛽1-test-hypotheses">Identify and Interpret Point Estimate of the Slope (𝛽1) &amp; Test Hypotheses</a></li>
+  <li><a href="#compute-cis-and-prediction-intervals-for-plotting" id="toc-compute-cis-and-prediction-intervals-for-plotting" class="nav-link" data-scroll-target="#compute-cis-and-prediction-intervals-for-plotting">Compute CIs and Prediction Intervals for Plotting</a>
+  <ul>
+  <li><a href="#model-1" id="toc-model-1" class="nav-link" data-scroll-target="#model-1">Model 1</a></li>
+  <li><a href="#model-2" id="toc-model-2" class="nav-link" data-scroll-target="#model-2">Model 2</a></li>
+  </ul></li>
+  <li><a href="#prediction-interval-for-brain-size-800-g" id="toc-prediction-interval-for-brain-size-800-g" class="nav-link" data-scroll-target="#prediction-interval-for-brain-size-800-g">Prediction Interval for Brain Size = 800 g</a></li>
+  <li><a href="#point-estimate-of-slope-hypotheses-testing" id="toc-point-estimate-of-slope-hypotheses-testing" class="nav-link" data-scroll-target="#point-estimate-of-slope-hypotheses-testing">Point Estimate of Slope &amp; Hypotheses Testing</a></li>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals">90% Confidence Intervals</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">saadams_OriginalHomeworkCode_04</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><img src="img/robot.png" class="img-fluid"></p>
+<section id="load-packages" class="level2">
+<h2 class="anchored" data-anchor-id="load-packages">Load Packages</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(curl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Using libcurl 8.11.1 with OpenSSL/3.3.2 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter()     masks stats::filter()
+✖ dplyr::lag()        masks stats::lag()
+✖ readr::parse_date() masks curl::parse_date()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'gridExtra'
+
+The following object is masked from 'package:dplyr':
+
+    combine</code></pre>
+</div>
+</div>
+</section>
+<section id="load-data" class="level2">
+<h2 class="anchored" data-anchor-id="load-data">Load Data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">curl</span>(<span class="st">"https://raw.githubusercontent.com/fuzzyatelin/fuzzyatelin.github.io/refs/heads/master/AN588_Spring25/KamilarAndCooperData.csv"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(f, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Scientific_Name          Family          Genus      Species
+1 Allenopithecus_nigroviridis Cercopithecidae Allenopithecus nigroviridis
+2         Allocebus_trichotis Cercopithecidae      Allocebus    trichotis
+3           Alouatta_belzebul        Atelidae       Alouatta     belzebul
+4             Alouatta_caraya        Atelidae       Alouatta       caraya
+5            Alouatta_guariba        Atelidae       Alouatta      guariba
+6           Alouatta_palliata        Atelidae       Alouatta     palliata
+  Brain_Size_Species_Mean Brain_Size_Female_Mean   Brain_size_Ref
+1                   58.02                  53.70 Isler et al 2008
+2                      NA                     NA                 
+3                   52.84                  51.19 Isler et al 2008
+4                   52.63                  47.80 Isler et al 2008
+5                   51.70                  49.08 Isler et al 2008
+6                   49.88                  48.04 Isler et al 2008
+  Body_mass_male_mean Body_mass_female_mean Mass_Dimorphism
+1                6130                  3180           1.928
+2                  92                    84           1.095
+3                7270                  5520           1.317
+4                6525                  4240           1.539
+5                5800                  4550           1.275
+6                7150                  5350           1.336
+                Mass_Ref MeanGroupSize AdultMales AdultFemale AdultSexRatio
+1       Isler et al 2008            NA         NA          NA            NA
+2 Smith and Jungers 1997          1.00       1.00         1.0            NA
+3       Isler et al 2008          7.00       1.00         1.0          1.00
+4       Isler et al 2008          8.00       2.30         3.3          1.43
+5       Isler et al 2008          6.53       1.37         2.2          1.61
+6       Isler et al 2008         12.00       2.90         6.3          2.17
+                                                    Social_Organization_Ref
+1                                                                          
+2                                                             Kappeler 1997
+3                                                       Campbell et al 2007
+4 van Schaik et al. 1999; Kappeler and Pereira 2003; Nunn &amp; van Schaik 2000
+5                                                       Campbell et al 2007
+6 van Schaik et al. 1999; Kappeler and Pereira 2003; Nunn &amp; van Schaik 2000
+  InterbirthInterval_d Gestation WeaningAge_d MaxLongevity_m LitterSz
+1                   NA        NA       106.15          276.0     1.01
+2                   NA        NA           NA             NA     1.00
+3                   NA        NA           NA             NA       NA
+4               337.62       187       323.16          243.6     1.01
+5                   NA        NA           NA             NA       NA
+6               684.37       186       495.60          300.0     1.02
+   Life_History_Ref GR_MidRangeLat_dd Precip_Mean_mm Temp_Mean_degC AET_Mean_mm
+1 Jones et al. 2009             -0.17         1574.0           25.2      1517.8
+2                              -16.59         1902.3           20.3      1388.2
+3                               -6.80         1643.5           24.9      1286.6
+4 Jones et al. 2009            -20.34         1166.4           22.9      1193.1
+5                              -21.13         1332.3           19.6      1225.7
+6 Jones et al. 2009              6.95         1852.6           23.7      1300.0
+  PET_Mean_mm       Climate_Ref HomeRange_km2      HomeRangeRef DayLength_km
+1      1589.4 Jones et al. 2009            NA                             NA
+2      1653.7 Jones et al. 2009            NA                             NA
+3      1549.8 Jones et al. 2009            NA                             NA
+4      1404.9 Jones et al. 2009            NA                           0.40
+5      1332.2 Jones et al. 2009          0.03 Jones et al. 2009           NA
+6      1633.9 Jones et al. 2009          0.19 Jones et al. 2009         0.32
+      DayLengthRef Territoriality Fruit Leaves Fauna             DietRef1
+1                              NA    NA                                  
+2                              NA    NA                                  
+3                              NA  57.3   19.1   0.0 Campbell et al. 2007
+4 Nunn et al. 2003             NA  23.8   67.7   0.0 Campbell et al. 2007
+5                              NA   5.2   73.0   0.0 Campbell et al. 2007
+6 Nunn et al. 2003         0.6506  33.1   56.4   0.0 Campbell et al. 2007
+  Canine_Dimorphism Canine_Dimorphism_Ref  Feed  Move  Rest Social
+1             2.210   Plavcan &amp; Ruff 2008    NA    NA    NA     NA
+2                NA                          NA    NA    NA     NA
+3             1.811   Plavcan &amp; Ruff 2008 13.75 18.75 57.30  10.00
+4             1.542   Plavcan &amp; Ruff 2008 15.90 17.60 61.60   4.90
+5             1.783   Plavcan &amp; Ruff 2008 18.33 14.33 64.37   3.00
+6             1.703   Plavcan &amp; Ruff 2008 17.94 12.32 66.14   3.64
+   Activity_Budget_Ref
+1                     
+2                     
+3 Campbell et al. 2007
+4 Campbell et al. 2007
+5 Campbell et al. 2007
+6 Campbell et al. 2007</code></pre>
+</div>
+</div>
+</section>
+<section id="task-1" class="level2">
+<h2 class="anchored" data-anchor-id="task-1">Task 1</h2>
+<dl>
+<dt><em>Write a simple R function, Z.prop.test(), that can perform one- or two-sample Z-tests for proportion data, using the following guidelines:</em></dt>
+<dd>
+<p>Your function should take the following arguments: p1 and n1 (no default) representing the estimated proportion and sample size (i.e., based on your sample data); p2 and n2 (both defaulting to NULL) that contain a second sample’s proportion and sample size data in the event of a two-sample test; p0 (no default) as the expected value for the population proportion; and alternative (default “two.sided”) and conf.level (default 0.95), to be used in the same way as in the function t.test().</p>
+</dd>
+<dd>
+<p>When conducting a two-sample test, it should be p1 that is tested as being smaller or larger than p2 when alternative=“less” or alternative=“greater”, the same as in the use of x and y in the function t.test(). The function should perform a one-sample Z-test using p1, n1, and p0 if either p2 or n2 (or both) is NULL.</p>
+</dd>
+<dd>
+<p>The function should contain a check for the rules of thumb we have talked about (𝑛x𝑝&gt; 5 and 𝑛x (1−𝑝) &gt; 5) to ensure the validity of assuming the normal distribution in both the one- and two-sample settings. If this is violated, the function should still complete but it should also print an appropriate warning message.</p>
+</dd>
+<dd>
+<p>The function should return a list containing the members Z (the test statistic), P (the appropriate p value), and CI (the two-sided CI with respect to “conf.level” around p1 in the case of a one-sample test and around p2-p1 in the case of a two-sample test). For all test alternatives (“two.sided”, “greater”, “less”), calculate symmetric CIs based on quantiles of the normal distribution rather than worrying about calculating single-limit confidence bounds.</p>
+</dd>
+</dl>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Z.prop.test <span class="ot">&lt;-</span> <span class="cf">function</span>(p1, n1, <span class="at">p2 =</span> <span class="cn">NULL</span>, <span class="at">n2 =</span> <span class="cn">NULL</span>, p0, <span class="at">alternative =</span> <span class="st">"two.sided"</span>, <span class="at">conf.level =</span> <span class="fl">0.95</span>) {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># require initial check for if distribution is normal w/ check.norm function</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  check.norm <span class="ot">&lt;-</span> <span class="cf">function</span>(p,n){</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (n <span class="sc">*</span> p <span class="sc">&lt;=</span> <span class="dv">5</span> <span class="sc">&amp;&amp;</span> n <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p) <span class="sc">&lt;=</span> <span class="dv">5</span>){</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">warning</span>(<span class="st">"Your distribution may not be normal: np and n(1 - p) should both be &gt; 5."</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">check.norm</span>(p1, n1)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(p2) <span class="sc">&amp;&amp;</span> <span class="sc">!</span><span class="fu">is.null</span>(n2))</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">check.norm</span>(p2, n2)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  alpha <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> conf.level <span class="co"># calculate alpha value</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  crit <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span>) <span class="co"># calculate critical values for CI</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># one-sample Z-test function</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">is.null</span>(p2) <span class="sc">||</span> <span class="fu">is.null</span>(n2)) {</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    SE <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(p0 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p0) <span class="sc">/</span> n1) <span class="co"># calculate SE for Z test statistic</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    z <span class="ot">&lt;-</span> (p1 <span class="sc">-</span> p0) <span class="sc">/</span> SE <span class="co"># calculate Z test statistic</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    CI <span class="ot">&lt;-</span> p1 <span class="sc">+</span> (<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> crit <span class="sc">*</span> SE) <span class="co"># p1 +/- the negative and positive values of crit * SE = confidence interval</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate p-value</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (alternative <span class="sc">==</span> <span class="st">"two.sided"</span>) {</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>      p_value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fu">abs</span>(Z))</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (alternative <span class="sc">==</span> <span class="st">"greater"</span>) {</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>      p_value <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(Z)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>      p_value <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(Z)</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  } </span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># two-sample Z-test function</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> {</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    pstar <span class="ot">&lt;-</span> (p1 <span class="sc">+</span> p2) <span class="sc">/</span> (n1 <span class="sc">+</span> n2) <span class="co"># pooled proportion</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    SE <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((pstar <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> pstar)) <span class="sc">*</span> ((<span class="dv">1</span><span class="sc">/</span>n1) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">/</span>n2)))</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    z <span class="ot">&lt;-</span> (p1 <span class="sc">-</span> p2) <span class="sc">/</span> SE <span class="co"># critical values</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    CI <span class="ot">&lt;-</span> (p1 <span class="sc">-</span> p2) <span class="sc">+</span> (<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> crit <span class="sc">*</span> SE) <span class="co"># calculate confidence interval</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate p-value</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (alternative <span class="sc">==</span> <span class="st">"two.sided"</span>){</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>      p_value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fu">abs</span>(Z))</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (alternative <span class="sc">==</span> <span class="st">"greater"</span>) {</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>      p_value <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(Z)</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>      p_value <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(Z)</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">Z =</span> z, <span class="at">P =</span> p_value, <span class="at">CI =</span> CI)) <span class="co"># return list of relevant values: Z (the test statistic), P (the appropriate p value), and CI (confidence interval)</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>//Challenge// not sure if else or elseif is more appropriate for the third statement for the alternative hypothesis - should I edit it to return a warning if the alternative is not any of the three?</p>
+</section>
+<section id="task-2" class="level2">
+<h2 class="anchored" data-anchor-id="task-2">Task 2</h2>
+<dl>
+<dt><em>The dataset from Kamilar and Cooper has in it a large number of variables related to life history and body size. For this exercise, the end aim is to fit a simple linear regression model to predict longevity (MaxLongevity_m) measured in months from species’ brain size (Brain_Size_Species_Mean) measured in grams. Do the following for both longevity~brain size and log(longevity)~log(brain size):</em></dt>
+<dd>
+<p>Fit the regression model and, using {ggplot2}, produce a scatterplot with the fitted line superimposed upon the data. Append the the fitted model equation to your plot (HINT: use the function geom_text()).</p>
+</dd>
+<dd>
+<p>Identify and interpret the point estimate of the slope (𝛽1), as well as the outcome of the test associated with the hypotheses H0: 𝛽1 = 0; HA: 𝛽1 ≠ 0. Also, find a 90 percent CI for the slope (𝛽1) parameter.</p>
+</dd>
+<dd>
+<p>Using your model, add lines for the 90 percent confidence and prediction interval bands on the plot and add a legend to differentiate between the lines.</p>
+</dd>
+<dd>
+<p>Produce a point estimate and associated 90 percent PI for the longevity of a species whose brain weight is 800 gm. Do you trust the model to predict observations accurately for this value of the explanatory variable? Why or why not?</p>
+</dd>
+<dd>
+<p>Looking at your two models, which do you think is better? Why?</p>
+</dd>
+</dl>
+<section id="linear-modeling" class="level3">
+<h3 class="anchored" data-anchor-id="linear-modeling">Linear Modeling</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get rid of NA in dataset</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(d)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 1: longevity~brain size</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> d, MaxLongevity_m <span class="sc">~</span> Brain_Size_Species_Mean)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 2: log(longevity)~log(brain size)</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_longevity =</span> <span class="fu">log</span>(MaxLongevity_m), <span class="at">log_brainsize =</span> <span class="fu">log</span>(Brain_Size_Species_Mean))</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>log_lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> d, log_longevity <span class="sc">~</span> log_brainsize)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># summarize models</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = MaxLongevity_m ~ Brain_Size_Species_Mean, data = d)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-152.498  -73.422   -4.425   72.430  285.749 
+
+Coefficients:
+                        Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)             307.7522    27.8459  11.052 6.73e-11 ***
+Brain_Size_Species_Mean   0.8789     0.1672   5.256 2.18e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 98.31 on 24 degrees of freedom
+Multiple R-squared:  0.5351,    Adjusted R-squared:  0.5158 
+F-statistic: 27.63 on 1 and 24 DF,  p-value: 2.176e-05</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(log_lm_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = log_longevity ~ log_brainsize, data = d)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.43044 -0.18029 -0.01211  0.17548  0.53196 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    5.08650    0.22413  22.694  &lt; 2e-16 ***
+log_brainsize  0.20285    0.05002   4.055 0.000458 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.2539 on 24 degrees of freedom
+Multiple R-squared:  0.4066,    Adjusted R-squared:  0.3819 
+F-statistic: 16.44 on 1 and 24 DF,  p-value: 0.0004583</code></pre>
+</div>
+</div>
+</section>
+<section id="formulas-for-plotting" class="level3">
+<h3 class="anchored" data-anchor-id="formulas-for-plotting">Formulas for Plotting</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 1</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>lm_intercept <span class="ot">&lt;-</span> <span class="fu">coef</span>(lm_model)[<span class="dv">1</span>] <span class="co"># intercept value in the lm_model result (index 1)</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>lm_slope <span class="ot">&lt;-</span> <span class="fu">coef</span>(lm_model)[<span class="dv">2</span>] <span class="co"># slope value in the lm_model result (index 2)</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>lm_formula <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"y = "</span>, lm_slope, <span class="st">"x + "</span>, lm_intercept) <span class="co"># format formula</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>lm_formula <span class="co"># view formula</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "y =  0.878903694312715 x +  307.752215122644"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 2</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>log_lm_intercept <span class="ot">&lt;-</span> <span class="fu">coef</span>(log_lm_model)[<span class="dv">1</span>] <span class="co"># intercept value in the log_lm_model result (index 1)</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>log_lm_slope <span class="ot">&lt;-</span> <span class="fu">coef</span>(log_lm_model)[<span class="dv">2</span>] <span class="co"># slope value in the log_lm_model result (index 2)</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>log_lm_formula <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"y = "</span>, log_lm_slope, <span class="st">"x + "</span>, log_lm_intercept) <span class="co"># format formula</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>log_lm_formula <span class="co">#view formula</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "y =  0.202854284674617 x +  5.08649774633527"</code></pre>
+</div>
+</div>
+</section>
+<section id="scatterplots" class="level3">
+<h3 class="anchored" data-anchor-id="scatterplots">Scatterplots</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 1</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>lm_model_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d, <span class="fu">aes</span>(<span class="at">x =</span> MaxLongevity_m, <span class="at">y =</span> Brain_Size_Species_Mean)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">450</span>, <span class="at">y =</span> <span class="dv">400</span>, <span class="at">label =</span> lm_formula), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Longevity (mo.) vs. Brain Size (g)"</span>, <span class="at">x =</span> <span class="st">"Longevity (months)"</span>, <span class="at">y =</span> <span class="st">"Brain Size (grams)"</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 2</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>log_lm_model_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(d, <span class="fu">aes</span>(<span class="at">x =</span> log_longevity, <span class="at">y =</span> log_brainsize)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">6</span>, <span class="at">y =</span> <span class="dv">6</span>, <span class="at">label =</span> log_lm_formula), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Log Model: Longevity (mo.) vs. Brain Size (g)"</span>, <span class="at">x =</span> <span class="st">"log(Longevity (months))"</span>, <span class="at">y =</span> <span class="st">"log(Brain Size (grams))"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>//Challenge// My formulas are so long and the plot just doesn’t look that nice to me - I don’t really know if there is a better way to do this. I intially tried to write a function but got a little confused on how to change things to suit both models.</p>
+</section>
+<section id="identify-and-interpret-point-estimate-of-the-slope-𝛽1-test-hypotheses" class="level3">
+<h3 class="anchored" data-anchor-id="identify-and-interpret-point-estimate-of-the-slope-𝛽1-test-hypotheses">Identify and Interpret Point Estimate of the Slope (𝛽1) &amp; Test Hypotheses</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 1</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>lm_beta1 <span class="ot">&lt;-</span> lm_slope</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>lm_ci <span class="ot">&lt;-</span> <span class="fu">confint</span>(lm_model, <span class="at">level =</span> <span class="fl">0.90</span>)[<span class="st">"Brain_Size_Species_Mean"</span>,]</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>lm_beta1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Brain_Size_Species_Mean 
+              0.8789037 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lm_ci</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      5 %      95 % 
+0.5928154 1.1649920 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 2</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>log_lm_beta1 <span class="ot">&lt;-</span> log_lm_slope</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>log_lm_ci <span class="ot">&lt;-</span> <span class="fu">confint</span>(log_lm_model, <span class="at">level =</span> <span class="fl">0.90</span>)[<span class="st">"log_brainsize"</span>,]</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>log_lm_beta1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>log_brainsize 
+    0.2028543 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>log_lm_ci</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      5 %      95 % 
+0.1172695 0.2884391 </code></pre>
+</div>
+</div>
+<p>//Challenge// I think I’m a little confused about the bracketing for this. I tried doing ex. [2,4] as before but it didn’t work so I used the names in “” instead. I’m not sure why I had to do this here and not before.</p>
+<p>Interpretation: reject the null hypothesis in favor of the alternative. That is, there is a significant linear relationship between brain size and longevity in both models (because beta1 does not equal 0 and the 0 is not contained in the confidence intervals for either model.)</p>
+</section>
+<section id="compute-cis-and-prediction-intervals-for-plotting" class="level3">
+<h3 class="anchored" data-anchor-id="compute-cis-and-prediction-intervals-for-plotting">Compute CIs and Prediction Intervals for Plotting</h3>
+<section id="model-1" class="level4">
+<h4 class="anchored" data-anchor-id="model-1">Model 1</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make new data frame (d1)</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># sequence only to minimum and maximum values of all rows</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Brain_Size_Species_Mean =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">min</span>(d<span class="sc">$</span>Brain_Size_Species_Mean), <span class="at">to =</span> <span class="fu">max</span>(d<span class="sc">$</span>Brain_Size_Species_Mean), <span class="at">length.out =</span> <span class="fu">nrow</span>(d)))</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>ci1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm_model, d1, <span class="at">interval =</span> <span class="st">"confidence"</span>, <span class="at">level =</span> <span class="fl">0.90</span>) <span class="co"># predict confidence intervals</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>pi1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm_model, d1, <span class="at">interval =</span> <span class="st">"prediction"</span>, <span class="at">level =</span> <span class="fl">0.90</span>) <span class="co"># prediction intervals</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(d1, ci1, pi1) <span class="co"># add CIS and prediction intervals to new dataframe</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(d1) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Brain_Size_Species_Mean"</span>, <span class="st">"CIfit"</span>, <span class="st">"CIlwr"</span>, <span class="st">"CIupr"</span>, <span class="st">"PIfit"</span>, <span class="st">"PIlwr"</span>, <span class="st">"PIupr"</span>) <span class="co"># name columns of new dataframe</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Brain_Size_Species_Mean    CIfit    CIlwr    CIupr    PIfit    PIlwr    PIupr
+1                  7.2400 314.1155 267.9467 360.2843 314.1155 139.6963 488.5347
+2                 26.5668 331.1019 288.6176 373.5862 331.1019 157.6216 504.5822
+3                 45.8936 348.0883 308.8529 387.3237 348.0883 175.3749 520.8017
+4                 65.2204 365.0747 328.5362 401.6132 365.0747 192.9539 537.1954
+5                 84.5472 382.0611 347.5379 416.5842 382.0611 210.3568 553.7653
+6                103.8740 399.0475 365.7341 432.3608 399.0475 227.5824 570.5126</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add new lines for CI and PI to plot for Model 1</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>lm_new <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> d, <span class="fu">aes</span>(<span class="at">x =</span> Brain_Size_Species_Mean, <span class="at">y =</span> MaxLongevity_m))</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>lm_new <span class="ot">&lt;-</span> lm_new <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>lm_new <span class="ot">&lt;-</span> lm_new <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> d1, <span class="fu">aes</span>(<span class="at">x =</span> Brain_Size_Species_Mean, <span class="at">y =</span> CIfit), <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">lwd =</span> <span class="dv">1</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>lm_new <span class="ot">&lt;-</span> lm_new <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> d1, <span class="fu">aes</span>(<span class="at">x =</span> Brain_Size_Species_Mean, <span class="at">y =</span> CIlwr), <span class="at">colour =</span> <span class="st">"blue"</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>lm_new <span class="ot">&lt;-</span> lm_new <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> d1, <span class="fu">aes</span>(<span class="at">x =</span> Brain_Size_Species_Mean, <span class="at">y =</span> CIupr), <span class="at">colour =</span> <span class="st">"blue"</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>lm_new <span class="ot">&lt;-</span> lm_new <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> d1, <span class="fu">aes</span>(<span class="at">x =</span> Brain_Size_Species_Mean, <span class="at">y =</span> PIlwr), <span class="at">colour =</span> <span class="st">"red"</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>lm_new <span class="ot">&lt;-</span> lm_new <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> d1, <span class="fu">aes</span>(<span class="at">x =</span> Brain_Size_Species_Mean, <span class="at">y =</span> PIupr), <span class="at">colour =</span> <span class="st">"red"</span>)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>lm_new <span class="co"># view plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="saadams_OriginalHomeworkCode_04_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="model-2" class="level4">
+<h4 class="anchored" data-anchor-id="model-2">Model 2</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make new data frame (d2)</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># sequence only to minimum and maximum values of all rows</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">log_brainsize =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">min</span>(d<span class="sc">$</span>log_brainsize), <span class="at">to =</span> <span class="fu">max</span>(d<span class="sc">$</span>log_brainsize), <span class="at">length.out =</span> <span class="fu">nrow</span>(d)))</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>ci2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(log_lm_model, d2, <span class="at">interval =</span> <span class="st">"confidence"</span>, <span class="at">level =</span> <span class="fl">0.90</span>) <span class="co"># predict confidence intervals</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>pi2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(log_lm_model, d2, <span class="at">interval =</span> <span class="st">"prediction"</span>, <span class="at">level =</span> <span class="fl">0.90</span>) <span class="co"># prediction intervals</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(d2, ci2, pi2) <span class="co"># add CIS and prediction intervals to new dataframe</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(d2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"log_brainsize"</span>, <span class="st">"CIfit"</span>, <span class="st">"CIlwr"</span>, <span class="st">"CIupr"</span>, <span class="st">"PIfit"</span>, <span class="st">"PIlwr"</span>, <span class="st">"PIupr"</span>) <span class="co"># name columns of new dataframe</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(d2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  log_brainsize    CIfit    CIlwr    CIupr    PIfit    PIlwr    PIupr
+1      1.979621 5.488072 5.266574 5.709571 5.488072 5.000426 5.975719
+2      2.148246 5.522279 5.314027 5.730530 5.522279 5.040505 6.004053
+3      2.316871 5.556485 5.361313 5.751657 5.556485 5.080218 6.032751
+4      2.485496 5.590691 5.408394 5.772988 5.590691 5.119555 6.061828
+5      2.654120 5.624897 5.455225 5.794570 5.624897 5.158500 6.091295
+6      2.822745 5.659104 5.501745 5.816463 5.659104 5.197044 6.121164</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add new lines for CI and PI to plot for Model 2</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>log_lm_new <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> d, <span class="fu">aes</span>(<span class="at">x =</span> log_brainsize, <span class="at">y =</span> log_longevity))</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>log_lm_new <span class="ot">&lt;-</span> log_lm_new <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>log_lm_new <span class="ot">&lt;-</span> log_lm_new <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> d2, <span class="fu">aes</span>(<span class="at">x =</span> log_brainsize, <span class="at">y =</span> CIfit), <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">lwd =</span> <span class="dv">1</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>log_lm_new <span class="ot">&lt;-</span> log_lm_new <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> d2, <span class="fu">aes</span>(<span class="at">x =</span> log_brainsize, <span class="at">y =</span> CIlwr), <span class="at">colour =</span> <span class="st">"blue"</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>log_lm_new <span class="ot">&lt;-</span> log_lm_new <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> d2, <span class="fu">aes</span>(<span class="at">x =</span> log_brainsize, <span class="at">y =</span> CIupr), <span class="at">colour =</span> <span class="st">"blue"</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>log_lm_new <span class="ot">&lt;-</span> log_lm_new <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> d2, <span class="fu">aes</span>(<span class="at">x =</span> log_brainsize, <span class="at">y =</span> PIlwr), <span class="at">colour =</span> <span class="st">"red"</span>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>log_lm_new <span class="ot">&lt;-</span> log_lm_new <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> d2, <span class="fu">aes</span>(<span class="at">x =</span> log_brainsize, <span class="at">y =</span> PIupr), <span class="at">colour =</span> <span class="st">"red"</span>)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>log_lm_new <span class="co"># view plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="saadams_OriginalHomeworkCode_04_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>//Challenge// I don’t really know if this is the best way to add these lines to the plot/the neatest. I really just based this off the modules but I feel like there could be a better way to do this.</p>
+</section>
+</section>
+<section id="prediction-interval-for-brain-size-800-g" class="level3">
+<h3 class="anchored" data-anchor-id="prediction-interval-for-brain-size-800-g">Prediction Interval for Brain Size = 800 g</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 1</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>species_test <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Brain_Size_Species_Mean =</span> <span class="dv">800</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(lm_model, species_test, <span class="at">interval =</span> <span class="st">"prediction"</span>, <span class="at">level =</span> <span class="fl">0.90</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       fit     lwr      upr
+1 1010.875 751.631 1270.119</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 2</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>species_test <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">log_brainsize =</span> <span class="fu">log</span>(<span class="dv">800</span>))</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(log_lm_model, species_test, <span class="at">interval =</span> <span class="st">"prediction"</span>, <span class="at">level =</span> <span class="fl">0.90</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     fit      lwr      upr
+1 6.4425 5.957435 6.927564</code></pre>
+</div>
+</div>
+<p>I think that Model 2 (the log model) seems much more trustworthy for predicting a species with brain size = 800 grams. the upper and lower limits seem to be much more within the range of what is shown in the models and the log model with the CIs and PIs plotted appears to encapsulate the points more closely. So, Looking at these two models, I would think that my Model 2 is a better fit for the data.</p>
+<p>//Challenge// I don’t know if I should expand on my interpretation or if there is more to be said for how to look at the PIs and CIs.</p>
+</section>
+<section id="point-estimate-of-slope-hypotheses-testing" class="level3">
+<h3 class="anchored" data-anchor-id="point-estimate-of-slope-hypotheses-testing">Point Estimate of Slope &amp; Hypotheses Testing</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 1</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>lm_beta1 <span class="ot">&lt;-</span> <span class="fu">cor</span>(d<span class="sc">$</span>MaxLongevity_m, d<span class="sc">$</span>Brain_Size_Species_Mean) <span class="sc">*</span> <span class="fu">sd</span>(d<span class="sc">$</span>MaxLongevity_m) <span class="sc">/</span> <span class="fu">sd</span>(d<span class="sc">$</span>Brain_Size_Species_Mean)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>lm_beta1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8789037</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>lm_beta0 <span class="ot">&lt;-</span> <span class="fu">mean</span>(d<span class="sc">$</span>MaxLongevity_m) <span class="sc">-</span> lm_beta1 <span class="sc">*</span> <span class="fu">mean</span>(d<span class="sc">$</span>Brain_Size_Species_Mean)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>lm_beta0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 307.7522</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 2</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>log_lm_beta1 <span class="ot">&lt;-</span> <span class="fu">cor</span>(d<span class="sc">$</span>log_longevity, d<span class="sc">$</span>log_brainsize) <span class="sc">*</span> <span class="fu">sd</span>(d<span class="sc">$</span>log_longevity) <span class="sc">/</span> <span class="fu">sd</span>(d<span class="sc">$</span>log_brainsize)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>log_lm_beta1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2028543</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>log_lm_beta0 <span class="ot">&lt;-</span> <span class="fu">mean</span>(d<span class="sc">$</span>log_longevity) <span class="sc">-</span> log_lm_beta1 <span class="sc">*</span> <span class="fu">mean</span>(d<span class="sc">$</span>log_brainsize)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>log_lm_beta0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.086498</code></pre>
+</div>
+</div>
+<p>Conclusion: 𝛽1 ≠ 0 for either model, so we reject the null hypothesis in favor of the alternative (there is a statistically significant correlation between life span and brain size for this sample).</p>
+</section>
+<section id="confidence-intervals" class="level3">
+<h3 class="anchored" data-anchor-id="confidence-intervals">90% Confidence Intervals</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 1</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>CI1 <span class="ot">&lt;-</span> <span class="fu">confint</span>(lm_model, <span class="at">level =</span> <span class="fl">0.90</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>CI1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                5 %       95 %
+(Intercept)             260.1112167 355.393214
+Brain_Size_Species_Mean   0.5928154   1.164992</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 2</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>CI2 <span class="ot">&lt;-</span> <span class="fu">confint</span>(log_lm_model, <span class="at">level =</span> <span class="fl">0.90</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>CI2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    5 %      95 %
+(Intercept)   4.7030309 5.4699646
+log_brainsize 0.1172695 0.2884391</code></pre>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

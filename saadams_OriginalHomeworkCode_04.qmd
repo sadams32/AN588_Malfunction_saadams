@@ -2,7 +2,7 @@
 title: "saadams_OriginalHomeworkCode_04"
 format: html
 editor: visual
-theme: readthedown
+theme: yeti
 toc: true
 toc-depth: 5
 code-block-bg: true
@@ -17,6 +17,7 @@ highlight-style: "gruvbox"
 ```{r}
 library(curl)
 library(tidyverse)
+library(gridExtra)
 ```
 
 ## Load Data
@@ -89,6 +90,7 @@ Z.prop.test <- function(p1, n1, p2 = NULL, n2 = NULL, p0, alternative = "two.sid
   return(list(Z = z, P = p_value, CI = CI)) # return list of relevant values: Z (the test statistic), P (the appropriate p value), and CI (confidence interval)
 }
 ```
+//Challenge// not sure if else or elseif is more appropriate for the third statement for the alternative hypothesis - should I edit it to return a warning if the alternative is not any of the three?
 
 ## Task 2
 
@@ -124,35 +126,7 @@ summary(lm_model)
 summary(log_lm_model)
 ```
 
-### Point Estimate of Slope & Hypotheses Testing
-```{r}
-# Model 1
-lm_beta1 <- cor(d$MaxLongevity_m, d$Brain_Size_Species_Mean) * sd(d$MaxLongevity_m) / sd(d$Brain_Size_Species_Mean)
-lm_beta1
 
-lm_beta0 <- mean(d$MaxLongevity_m) - lm_beta1 * mean(d$Brain_Size_Species_Mean)
-lm_beta0
-
-# Model 2
-log_lm_beta1 <- cor(d$log_longevity, d$log_brainsize) * sd(d$log_longevity) / sd(d$log_brainsize)
-log_lm_beta1
-
-log_lm_beta0 <- mean(d$log_longevity) - log_lm_beta1 * mean(d$log_brainsize)
-log_lm_beta0
-```
-Conclusion: 𝛽1 ≠ 0 for either model, so we reject the null hypothesis in favor of the alternative (there is a statistically significant correlation between life span and brain size for this sample).
-
-### 90% Confidence Intervals
-```{r}
-# Model 1
-CI1 <- confint(lm_model, level = 0.90)
-CI1
-
-# Model 2
-CI2 <- confint(log_lm_model, level = 0.90)
-CI2
-
-```
 
 ### Formulas for Plotting
 
@@ -174,7 +148,101 @@ log_lm_formula #view formula
 
 ### Scatterplots
 ```{r}
+# Model 1
+lm_model_plot <- ggplot(d, aes(x = MaxLongevity_m, y = Brain_Size_Species_Mean)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "blue") + geom_text(aes(x = 450, y = 400, label = lm_formula), color = "red") + labs(title = "Longevity (mo.) vs. Brain Size (g)", x = "Longevity (months)", y = "Brain Size (grams)")
 
-ggplot(d, aes(x = MaxLongevity_m, y = Brain_Size_Species_Mean)) + geom_point() + geom_text(x = max(d$MaxLongevity_m), y = max(d$Brain_Size_Species_Mean, label = lm_formula, color = "blue")) + labs(title = "Longevity (mo.) vs. Brain Size (g)", x = "Longevity (months)", y = "Brain Size (grams)")
+# Model 2
+log_lm_model_plot <- ggplot(d, aes(x = log_longevity, y = log_brainsize)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "blue") + geom_text(aes(x = 6, y = 6, label = log_lm_formula), color = "red") + labs(title = "Log Model: Longevity (mo.) vs. Brain Size (g)", x = "log(Longevity (months))", y = "log(Brain Size (grams))")
 ```
+//Challenge// My formulas are so long and the plot just doesn't look that nice to me - I don't really know if there is a better way to do this. I intially tried to write a function but got a little confused on how to change things to suit both models.
+
+### Identify and Interpret Point Estimate of the Slope (𝛽1) & Test Hypotheses
+
+```{r}
+# Model 1
+lm_beta1 <- lm_slope
+lm_ci <- confint(lm_model, level = 0.90)["Brain_Size_Species_Mean",]
+
+lm_beta1
+lm_ci
+
+# Model 2
+log_lm_beta1 <- log_lm_slope
+log_lm_ci <- confint(log_lm_model, level = 0.90)["log_brainsize",]
+
+log_lm_beta1
+log_lm_ci
+```
+//Challenge// I think I'm a little confused about the bracketing for this. I tried doing ex. [2,4] as before but it didn't work so I used the names in "" instead. I'm not sure why I had to do this here and not before. 
+
+Interpretation: reject the null hypothesis in favor of the alternative. That is, there is a significant linear relationship between brain size and longevity in both models (because beta1 does not equal 0 and the 0 is not contained in the confidence intervals for either model.)
+
+### Compute CIs and Prediction Intervals for Plotting
+
+#### Model 1
+```{r}
+# make new data frame (d1)
+# sequence only to minimum and maximum values of all rows
+d1 <- data.frame(Brain_Size_Species_Mean = seq(from = min(d$Brain_Size_Species_Mean), to = max(d$Brain_Size_Species_Mean), length.out = nrow(d)))
+
+ci1 <- predict(lm_model, d1, interval = "confidence", level = 0.90) # predict confidence intervals
+
+pi1 <- predict(lm_model, d1, interval = "prediction", level = 0.90) # prediction intervals
+
+d1 <- cbind(d1, ci1, pi1) # add CIS and prediction intervals to new dataframe
+names(d1) <- c("Brain_Size_Species_Mean", "CIfit", "CIlwr", "CIupr", "PIfit", "PIlwr", "PIupr") # name columns of new dataframe
+head(d1)
+
+# add new lines for CI and PI to plot for Model 1
+lm_new <- ggplot(data = d, aes(x = Brain_Size_Species_Mean, y = MaxLongevity_m))
+lm_new <- lm_new + geom_point(alpha = 1/2)
+lm_new <- lm_new + geom_line(data = d1, aes(x = Brain_Size_Species_Mean, y = CIfit), colour = "black", lwd = 1)
+lm_new <- lm_new + geom_line(data = d1, aes(x = Brain_Size_Species_Mean, y = CIlwr), colour = "blue")
+lm_new <- lm_new + geom_line(data = d1, aes(x = Brain_Size_Species_Mean, y = CIupr), colour = "blue")
+lm_new <- lm_new + geom_line(data = d1, aes(x = Brain_Size_Species_Mean, y = PIlwr), colour = "red")
+lm_new <- lm_new + geom_line(data = d1, aes(x = Brain_Size_Species_Mean, y = PIupr), colour = "red")
+
+lm_new # view plot
+```
+
+#### Model 2
+```{r}
+# make new data frame (d2)
+# sequence only to minimum and maximum values of all rows
+d2 <- data.frame(log_brainsize = seq(from = min(d$log_brainsize), to = max(d$log_brainsize), length.out = nrow(d)))
+
+ci2 <- predict(log_lm_model, d2, interval = "confidence", level = 0.90) # predict confidence intervals
+pi2 <- predict(log_lm_model, d2, interval = "prediction", level = 0.90) # prediction intervals
+
+d2 <- cbind(d2, ci2, pi2) # add CIS and prediction intervals to new dataframe
+
+names(d2) <- c("log_brainsize", "CIfit", "CIlwr", "CIupr", "PIfit", "PIlwr", "PIupr") # name columns of new dataframe
+head(d2)
+
+# add new lines for CI and PI to plot for Model 2
+log_lm_new <- ggplot(data = d, aes(x = log_brainsize, y = log_longevity))
+log_lm_new <- log_lm_new + geom_point(alpha = 1/2)
+log_lm_new <- log_lm_new + geom_line(data = d2, aes(x = log_brainsize, y = CIfit), colour = "black", lwd = 1)
+log_lm_new <- log_lm_new + geom_line(data = d2, aes(x = log_brainsize, y = CIlwr), colour = "blue")
+log_lm_new <- log_lm_new + geom_line(data = d2, aes(x = log_brainsize, y = CIupr), colour = "blue")
+log_lm_new <- log_lm_new + geom_line(data = d2, aes(x = log_brainsize, y = PIlwr), colour = "red")
+log_lm_new <- log_lm_new + geom_line(data = d2, aes(x = log_brainsize, y = PIupr), colour = "red")
+
+log_lm_new # view plot
+```
+//Challenge// I don't really know if this is the best way to add these lines to the plot/the neatest. I really just based this off the modules but I feel like there could be a better way to do this.
+
+### Prediction Interval for Brain Size = 800 g
+```{r}
+# Model 1
+species_test <- data.frame(Brain_Size_Species_Mean = 800)
+predict(lm_model, species_test, interval = "prediction", level = 0.90)
+
+# Model 2
+species_test <- data.frame(log_brainsize = log(800))
+predict(log_lm_model, species_test, interval = "prediction", level = 0.90)
+```
+I think that Model 2 (the log model) seems much more trustworthy for predicting a species with brain size = 800 grams. the upper and lower limits seem to be much more within the range of what is shown in the models and the log model with the CIs and PIs plotted appears to encapsulate the points more closely. So, Looking at these two models, I would think that my Model 2 is a better fit for the data.
+
+//Challenge// I don't know if I should expand on my interpretation or if there is more to be said for how to look at the PIs and CIs.
 
