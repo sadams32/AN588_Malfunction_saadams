@@ -14,11 +14,18 @@ highlight-style: "gruvbox"
 
 ## Load Packages
 
-
+```{r}
+library(curl)
+library(tidyverse)
+```
 
 ## Load Data
 
-
+```{r}
+f <- curl("https://raw.githubusercontent.com/fuzzyatelin/fuzzyatelin.github.io/refs/heads/master/AN588_Spring25/KamilarAndCooperData.csv")
+d <- read.csv(f, header = TRUE, sep = ",", stringsAsFactors = FALSE)
+head(d)
+```
 
 ## Task 1
 
@@ -50,15 +57,16 @@ Z.prop.test <- function(p1, n1, p2 = NULL, n2 = NULL, p0, alternative = "two.sid
   # one-sample Z-test function
   if(is.null(p2) || is.null(n2)) {
     SE <- sqrt(p0 * (1 - p0) / n1) # calculate SE for Z test statistic
-    Z <- (p1 - p0) / SE # calculate Z test statistic
+    z <- (p1 - p0) / SE # calculate Z test statistic
     CI <- p1 + (c(-1, 1) * crit * SE) # p1 +/- the negative and positive values of crit * SE = confidence interval
     
+    # calculate p-value
     if (alternative == "two.sided") {
-      P <- 2 * pnorm(-abs(Z))
+      p_value <- 2 * pnorm(-abs(Z))
     } else if (alternative == "greater") {
-      P <- 1 - pnorm(Z)
+      p_value <- 1 - pnorm(Z)
     } else {
-      P <- pnorm(Z)
+      p_value <- pnorm(Z)
     }
   } 
   
@@ -66,36 +74,88 @@ Z.prop.test <- function(p1, n1, p2 = NULL, n2 = NULL, p0, alternative = "two.sid
   else {
     pstar <- (p1 + p2) / (n1 + n2) # pooled proportion
     SE <- sqrt((pstar * (1 - pstar)) * ((1/n1) + (1/n2)))
-    Z <- (p1 - p2) / SE # critical values
+    z <- (p1 - p2) / SE # critical values
     CI <- (p1 - p2) + (c(-1, 1) * crit * SE) # calculate confidence interval
     
+    # calculate p-value
     if (alternative == "two.sided"){
-      P <- 2 * pnorm(-abs(Z))
+      p_value <- 2 * pnorm(-abs(Z))
     } else if (alternative == "greater") {
-      P <- 1 - pnorm(Z)
+      p_value <- 1 - pnorm(Z)
     } else {
-      P <- pnorm(Z)
+      p_value <- pnorm(Z)
     }
   }
-  return(list(Z = Z, P = P, CI = CI)) # return list of relevant values: Z (the test statistic), P (the appropriate p value), and CI (confidence interval)
+  return(list(Z = z, P = p_value, CI = CI)) # return list of relevant values: Z (the test statistic), P (the appropriate p value), and CI (confidence interval)
 }
-
 ```
 
 ## Task 2
 
-*The dataset from Kamilar and Cooper has in it a large number of variables related to life history and body size. For this exercise, the end aim is to fit a simple linear regression model to predict longevity (MaxLongevity_m) measured in months from species’ brain size (Brain_Size_Species_Mean) measured in grams. Do the following for both longevity~brain size and log(longevity)~log(brain size):*
+*The dataset from Kamilar and Cooper has in it a large number of variables related to life history and body size. For this exercise, the end aim is to fit a simple linear regression model to predict longevity (MaxLongevity_m) measured in months from species’ brain size (Brain_Size_Species_Mean) measured in grams. Do the following for both longevity\~brain size and log(longevity)\~log(brain size):*
 
-: Fit the regression model and, using {ggplot2}, produce a scatterplot with the fitted line superimposed upon the data. Append the the fitted model equation to your plot (HINT: use the function geom_text()).
+:   Fit the regression model and, using {ggplot2}, produce a scatterplot with the fitted line superimposed upon the data. Append the the fitted model equation to your plot (HINT: use the function geom_text()).
 
-: Identify and interpret the point estimate of the slope (𝛽1), as well as the outcome of the test associated with the hypotheses H0: 𝛽1 = 0; HA: 𝛽1 ≠ 0. Also, find a 90 percent CI for the slope (𝛽1) parameter.
+:   Identify and interpret the point estimate of the slope (𝛽1), as well as the outcome of the test associated with the hypotheses H0: 𝛽1 = 0; HA: 𝛽1 ≠ 0. Also, find a 90 percent CI for the slope (𝛽1) parameter.
 
-: Using your model, add lines for the 90 percent confidence and prediction interval bands on the plot and add a legend to differentiate between the lines.
+:   Using your model, add lines for the 90 percent confidence and prediction interval bands on the plot and add a legend to differentiate between the lines.
 
-: Produce a point estimate and associated 90 percent PI for the longevity of a species whose brain weight is 800 gm. Do you trust the model to predict observations accurately for this value of the explanatory variable? Why or why not?
+:   Produce a point estimate and associated 90 percent PI for the longevity of a species whose brain weight is 800 gm. Do you trust the model to predict observations accurately for this value of the explanatory variable? Why or why not?
 
-: Looking at your two models, which do you think is better? Why?
+:   Looking at your two models, which do you think is better? Why?
 
+
+### Linear Modeling
+```{r}
+# get rid of NA in dataset
+d <- na.omit(d)
+
+# Model 1: longevity~brain size
+lm_model <- lm(data = d, MaxLongevity_m ~ Brain_Size_Species_Mean)
+
+# Model 2: log(longevity)~log(brain size)
+d <- d %>%
+  mutate(log_longevity = log(MaxLongevity_m), log_brainsize = log(Brain_Size_Species_Mean))
+
+log_lm_model <- lm(data = d, log_longevity ~ log_brainsize)
+
+# summarize models
+summary(lm_model)
+summary(log_lm_model)
+```
+
+
+### Point Estimate of Slope & Hypotheses Testing
+```{r}
+# Model 1
+lm_beta1 <- cor(d$MaxLongevity_m, d$Brain_Size_Species_Mean) * sd(d$MaxLongevity_m) / sd(d$Brain_Size_Species_Mean)
+lm_beta1
+
+lm_beta0 <- mean(d$MaxLongevity_m) - lm_beta1 * mean(d$Brain_Size_Species_Mean)
+lm_beta0
+
+# Model 2
+log_lm_beta1 <- cor(d$log_longevity, d$log_brainsize) * sd(d$log_longevity) / sd(d$log_brainsize)
+log_lm_beta1
+
+log_lm_beta0 <- mean(d$log_longevity) - log_lm_beta1 * mean(d$log_brainsize)
+log_lm_beta0
+```
+Conclusion: 𝛽1 ≠ 0 for either model, so we reject the null hypothesis in favor of the alternative (there is a statistically significant correlation between life span and brain size for this sample).
+
+### 90% Confidence Intervals
+```{r}
+# Model 1
+CI1 <- confint(lm_model, level = 0.90)
+CI1
+
+# Model 2
+CI2 <- confint(log_lm_model, level = 0.90)
+CI2
+
+```
+
+### Scatterplots
 ```{r}
 
 ```
