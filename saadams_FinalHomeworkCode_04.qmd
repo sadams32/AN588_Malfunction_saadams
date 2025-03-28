@@ -100,16 +100,19 @@ Z.prop.test <- function(p1, n1, p2 = NULL, n2 = NULL, p0, alternative = "two.sid
 ### Examples
 
 #### Example 1: One sample test
+
 ```{r}
 Z.prop.test(p1 = 0.5, n1 = 100, p0 = 0.8)
 ```
 
 #### Example 2: Two sample test
+
 ```{r}
 Z.prop.test(p1 = 0.5, n1 = 100, p2 = 0.8, n2 = 35, p0 = 0.5)
 ```
 
 #### Example 3: One sample test, violates check.norm
+
 ```{r}
 Z.prop.test(p1 = 0.6, n1 = 5, p0 = 0.8)
 ```
@@ -273,3 +276,20 @@ predict(log_lm_model, species_test, interval = "prediction", level = 0.90)
 ```
 
 I think that Model 2 (the log model) seems much more trustworthy for predicting a species with brain size = 800 grams. the upper and lower limits seem to be much more within the range of what is shown in the models and the log model with the CIs and PIs plotted appears to encapsulate the points more closely. So, Looking at these two models, I would think that my Model 2 is a better fit for the data.
+
+## Notes
+
+Final Push: March 16, 2025 5:44 pm
+Push to add this note: March 27, 2025 8:09 pm 
+
+### 1) What you learned from running their Original Homework Code that helped improve your own code.
+I really liked that Sherry used a few cases to test her function for "Task 1." I ended up doing the same in my final assignment.
+
+### 2) What you did in your own code that might help to improve theirs.
+I suggested that they omit NA entries earlier in their code in case that messes with things later. Also, I think there might have been a mistake in using OR instead of AND in their function for task 1 for the conditions that needed to be checked. The way the data was called also wouldn't universally work on devices that are not Sherry's so I suggested she make an edit there.
+
+### 3) What challenges, if any, you both faced in your code that could not be helped by comparison.
+I think we both seemed to struggle a little writing the function and separating all the parts neatly, but got most of the important stuff in there in the end!
+
+### 4) Whether the annotation/commenting on your peer’s Original Homework Code is readable and interpretable to you, and if not then how it could be improved.
+I though Sherry's annotation/commenting was great! She included linked to the relevant modules which was a really nice detail. Also, she overall described her code really nicely
